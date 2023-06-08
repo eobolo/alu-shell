@@ -3,7 +3,7 @@
 #The content of the current directory
 #In a list format
 #Where only the part of the name after the first dash is displayed (refer to the example)
-CONTENTLIST="$(ls -1 [[:digit:]]*)"
+CONTENTLIST="$(ls -1)"
 for FILE in $CONTENTLIST; do
 	echo "$FILE" | cut -d "-" -f 2
 done
