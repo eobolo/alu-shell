@@ -3,4 +3,4 @@
 PROGRAM="4-to_infinity_and_beyond"
 PATTERN="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $8}' | tail -n 1)"
 #echo "$PATTERN"
-pkill -n -15 $PATTERN
+pkill -n -15 "$PATTERN"
