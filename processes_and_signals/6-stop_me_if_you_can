@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #Write a Bash script that stops 4-to_infinity_and_beyond process.
 PROGRAM="4-to_infinity_and_beyond"
 PATTERN="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $8}' | tail -n 1)"
