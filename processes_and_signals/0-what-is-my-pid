@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-ps r  --no-headers --format %p
+ps r  --no-headers -o %p | tr -d " "
