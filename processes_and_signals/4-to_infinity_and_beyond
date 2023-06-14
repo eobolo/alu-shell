@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Write a Bash script that displays To infinity and beyond indefinitely.
 START=0
 END=1
