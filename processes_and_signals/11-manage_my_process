@@ -16,16 +16,16 @@ elif [ "$1" = "stop" ];
 then
 	rm /var/run/my_process.pid
         PROGRAM="manage_my_process"
-        PATTERN="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $8}')"
-        Pkill -SIGTERM "$PATTERN"
+       	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}')"
+        kill -SIGTERM "$PID"
         echo "manage_my_process stopped"
 
 elif [ "$1" = "restart" ];
 then
 	rm /var/run/my_process.pid
         PROGRAM="manage_my_process"
-	PATTERN="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $8}')"
-        pkill -SIGTERM "$PATTERN"
+	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}')"
+        kill -SIGTERM "$PID"
         ./manage_my_process &
         echo "$$" >> /var/run/my_process.pid
         echo "manage_my_process restarted"
