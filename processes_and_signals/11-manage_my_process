@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
 # Write Bash (init) script 11-manage_my_process that manages manage_my_process. (both files need to be pushed to git)
-
-if [ -z "$1" ];
-then
-	echo "Usage: manage_my_process {start|stop|restart}"
-	exit 1
+if [ -z "$1" ]; then
+    echo "Usage: manage_my_process {start|stop|restart}"
+    exit 1
 fi
 
-if [ "$1" = "start" ];
-then
-	./manage_my_process &
-	echo "$$" >> /var/run/my_process.pid
-	echo "manage_my_process started"
+if [ "$1" = "start" ]; then
+    ./manage_my_process &
+    echo "$$" > /var/run/my_process.pid
+    echo "manage_my_process started"
 
-elif [ "$1" = "stop" ];
-then
-	PROGRAM="manage_my_process"
-	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}'| tail -n 1)"
-	rm -f /var/run/my_process.pid
-	echo "manage_my_process stopped"
-	kill -SIGTERM "$PID"
-
-elif [ "$1" = "restart" ];
-then
-	PROGRAM="manage_my_process"
-        PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}'| tail -n 1)"
+elif [ "$1" = "stop" ]; then
+    if [ -f /var/run/my_process.pid ]; then
+        PID=$(cat /var/run/my_process.pid)
         rm -f /var/run/my_process.pid
-	kill -SIGTERM "$PID"
-	./manage_my_process &
-        echo "$$" >> /var/run/my_process.pid
-	echo "manage_my_process restarted"
+        echo "manage_my_process stopped"
+        kill -SIGTERM "$PID"
+    else
+        echo "manage_my_process is not running"
+        exit 1
+    fi
+
+elif [ "$1" = "restart" ]; then
+    if [ -f /var/run/my_process.pid ]; then
+        PID=$(cat /var/run/my_process.pid)
+        rm -f /var/run/my_process.pid
+        kill -SIGTERM "$PID"
+        ./manage_my_process &
+        echo "$!" > /var/run/my_process.pid
+        echo "manage_my_process restarted"
+    else
+        echo "manage_my_process is not running"
+        exit 1
+    fi
+
 else
-	exit 1
+    exit 1
 fi
