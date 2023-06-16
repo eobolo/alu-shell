@@ -14,18 +14,18 @@ then
 
 elif [ "$1" = "stop" ];
 then
-	rm /var/run/my_process.pid
         PROGRAM="manage_my_process"
        	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
         kill -SIGTERM "$PID"
+	rm -f /var/run/my_process.pid
         echo "manage_my_process stopped"
 
 elif [ "$1" = "restart" ];
 then
-	rm /var/run/my_process.pid
         PROGRAM="manage_my_process"
 	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
         kill -SIGTERM "$PID"
+	rm -f /var/run/my_process.pid
         ./manage_my_process &
         echo "$$" >> /var/run/my_process.pid
         echo "manage_my_process restarted"
