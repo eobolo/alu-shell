@@ -4,6 +4,7 @@
 if [ -z "$1" ];
 then
 	echo "Usage: manage_my_process {start|stop|restart}"
+	exit 1
 fi
 
 if [ "$1" = "start" ];
@@ -30,5 +31,5 @@ then
         echo "$$" >> /var/run/my_process.pid
 	echo "manage_my_process restarted"
 else
-	exit
+	exit 1
 fi
