@@ -1,0 +1,3 @@
+{STUDENTEMAIL:obolo.emmanuel31052000@gmail.com, AGE:23, STUDENTID:012023}
+{STUDENTEMAIL:e.obolo@alustudent.com, AGE:24, STUDENTID:452023}
+{STUDENTEMAIL:m.kangabire@alustudent.com, AGE:19, STUDENTID:342023}
